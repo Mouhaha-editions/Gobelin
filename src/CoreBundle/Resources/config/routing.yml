@@ -1,0 +1,3 @@
+changelog:
+  path: /changelog
+  defaults: { _controller: "CoreBundle:ChangeLog:index" }

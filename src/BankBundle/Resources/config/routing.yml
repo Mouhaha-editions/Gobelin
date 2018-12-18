@@ -1,0 +1,19 @@
+bank_account:
+    resource: "@BankBundle/Resources/config/routing/account.yml"
+    prefix:   /bank/account
+
+bank_account_operation:
+    resource: "@BankBundle/Resources/config/routing/operation.yml"
+    prefix:   /bank/operation
+
+bank_account_recurrence:
+    resource: "@BankBundle/Resources/config/routing/recurrence.yml"
+    prefix:   /bank/recurrence
+
+bank_account_operation_category:
+    resource: "@BankBundle/Resources/config/routing/operation_category.yml"
+    prefix:   /bank/operation_category
+
+bank_account_operation_tiers:
+    resource: "@BankBundle/Resources/config/routing/operation_tiers.yml"
+    prefix:   /bank/operation_tiers

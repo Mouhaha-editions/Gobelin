@@ -1,0 +1,37 @@
+[15-Nov-2018 22:38:19 Europe/Paris] PHP Fatal error:  Cannot redeclare BillingBundle\Entity\SalesDocument::removeDetail() in F:\var\www\dev_project\src\BillingBundle\Entity\SalesDocument.php on line 254
+[03-Dec-2018 21:38:22 Europe/Paris] PHP Warning:  Uncaught Symfony\Component\Debug\Exception\ContextErrorException: Catchable Fatal Error: Object of class CustomerBundle\Entity\CustomerCommunication could not be converted to string in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php:198
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpFoundation\StreamedResponse.php(114): CustomerBundle\Controller\CustomerController->CustomerBundle\Controller\{closure}()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpFoundation\Response.php(373): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\EventListener\StreamedResponseListener.php(39): Symfony\Component\HttpFoundation\Response->send()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\EventDispatcher\Debug\WrappedListener.php(104): Symfony\Component\HttpKernel\EventListener\StreamedResponseListener->onKernelRes in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php on line 198
+[03-Dec-2018 21:38:22 Europe/Paris] PHP Fatal error:  Object of class CustomerBundle\Entity\CustomerCommunication could not be converted to string in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php on line 198
+[03-Dec-2018 21:38:22 Europe/Paris] PHP Warning:  Uncaught Symfony\Component\Debug\Exception\ContextErrorException: Catchable Fatal Error: Object of class CustomerBundle\Entity\CustomerCommunication could not be converted to string in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php:198
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpFoundation\StreamedResponse.php(114): CustomerBundle\Controller\CustomerController->CustomerBundle\Controller\{closure}()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpFoundation\Response.php(373): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\EventListener\StreamedResponseListener.php(39): Symfony\Component\HttpFoundation\Response->send()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\EventDispatcher\Debug\WrappedListener.php(104): Symfony\Component\HttpKernel\EventListener\StreamedResponseListener->onKernelRes in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php on line 198
+[03-Dec-2018 21:38:22 Europe/Paris] PHP Fatal error:  Object of class CustomerBundle\Entity\CustomerCommunication could not be converted to string in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php on line 198
+[03-Dec-2018 21:38:28 Europe/Paris] PHP Warning:  Uncaught Symfony\Component\Debug\Exception\ContextErrorException: Catchable Fatal Error: Object of class CustomerBundle\Entity\CustomerCommunication could not be converted to string in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php:198
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpFoundation\StreamedResponse.php(114): CustomerBundle\Controller\CustomerController->CustomerBundle\Controller\{closure}()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpFoundation\Response.php(373): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\EventListener\StreamedResponseListener.php(39): Symfony\Component\HttpFoundation\Response->send()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\EventDispatcher\Debug\WrappedListener.php(104): Symfony\Component\HttpKernel\EventListener\StreamedResponseListener->onKernelRes in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php on line 198
+[03-Dec-2018 21:38:28 Europe/Paris] PHP Fatal error:  Object of class CustomerBundle\Entity\CustomerCommunication could not be converted to string in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php on line 198
+[03-Dec-2018 21:38:59 Europe/Paris] PHP Warning:  Uncaught Symfony\Component\Debug\Exception\ContextErrorException: Catchable Fatal Error: Object of class CustomerBundle\Entity\CustomerCommunication could not be converted to string in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php:198
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpFoundation\StreamedResponse.php(114): CustomerBundle\Controller\CustomerController->CustomerBundle\Controller\{closure}()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpFoundation\Response.php(373): Symfony\Component\HttpFoundation\StreamedResponse->sendContent()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\EventListener\StreamedResponseListener.php(39): Symfony\Component\HttpFoundation\Response->send()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\EventDispatcher\Debug\WrappedListener.php(104): Symfony\Component\HttpKernel\EventListener\StreamedResponseListener->onKernelRes in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php on line 198
+[03-Dec-2018 21:38:59 Europe/Paris] PHP Fatal error:  Object of class CustomerBundle\Entity\CustomerCommunication could not be converted to string in F:\var\www\dev_project\src\CustomerBundle\Controller\CustomerController.php on line 198
+[05-Dec-2018 22:36:10 Europe/Paris] PHP Fatal error:  Maximum execution time of 60 seconds exceeded in F:\var\www\dev_project\src\BankBundle\Entity\Account.php on line 47
+[05-Dec-2018 22:41:22 Europe/Paris] PHP Fatal error:  Maximum execution time of 60 seconds exceeded in F:\var\www\dev_project\src\BankBundle\Entity\Account.php on line 47
+[06-Dec-2018 23:11:30 Europe/Paris] PHP Fatal error:  Maximum execution time of 60 seconds exceeded in F:\var\www\dev_project\src\BankBundle\Entity\Account.php on line 47
+[06-Dec-2018 23:16:15 Europe/Paris] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in F:\var\www\dev_project\src\BankBundle\Entity\Account.php on line 47
+[06-Dec-2018 23:16:15 Europe/Paris] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in Unknown on line 0
+[06-Dec-2018 23:16:15 Europe/Paris] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in Unknown on line 0
+[06-Dec-2018 23:16:15 Europe/Paris] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in Unknown on line 0
+[11-Dec-2018 22:22:00 Europe/Paris] PHP Fatal error:  Maximum execution time of 20 seconds exceeded in F:\var\www\dev_project\var\cache\dev\ContainerSi0xuie\getFosUser_Security_InteractiveLoginListenerService.php on line 8

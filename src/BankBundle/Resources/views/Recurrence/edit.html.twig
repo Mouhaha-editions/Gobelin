@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Ajouter/Modifier une récurrence
+                {% endblock %}
+                {% block panel_body %}
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" class="btn" value="Enregistrer"/>
+                    <input type="submit" class="btn btn-primary" name="add_one" value="Enregistrer et entrer une nouvelle"/>
+
+                    {{ form_end(form) }}
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('vendor/EasyAutocomplete/dist/easy-autocomplete.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/EasyAutocomplete/dist/easy-autocomplete.themes.min.css') }}" rel="stylesheet">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('vendor/EasyAutocomplete/dist/jquery.easy-autocomplete.js') }}"></script>
+    <script>
+        $(function () {
+            var options_category = {
+                data: {{ render(controller('BankBundle:OperationCategory:jsonList')) }},
+                getValue: 'label',
+                list: {
+                    onChooseEvent: function () {
+                        var elt = $("#bankbundle_recurrence_category_text");
+                        var elt_hidden = $("#bankbundle_recurrence_category");
+                        var value = elt.getSelectedItemData().id;
+                        elt_hidden.val(value);
+                    },
+                    onLoadEvent: function () {
+                        var elt_hidden = $("#bankbundle_recurrence_category");
+                        elt_hidden.val("");
+                    },
+
+                    match: {
+                        enabled: true
+                    }
+                },
+                theme: "square"
+            };
+            $("#bankbundle_recurrence_category_text").easyAutocomplete(options_category);
+
+            var options_tiers = {
+                data: {{ render(controller('BankBundle:OperationTiers:jsonList')) }},
+                getValue: "label",
+                list: {
+                    onChooseEvent: function () {
+                        var elt = $("#bankbundle_recurrence_category_text");
+                        var elt_hidden = $("#bankbundle_recurrence_category");
+                        var value = elt.getSelectedItemData().id;
+                        elt_hidden.val(value);
+                    },
+                    onLoadEvent: function () {
+                        var elt_hidden = $("#bankbundle_recurrence_category");
+                        elt_hidden.val("");
+                    },
+
+                    match: {
+                        enabled: true
+                    }
+                },
+                theme: "square"
+            };
+
+            $("#bankbundle_recurrence_tiers_text").easyAutocomplete(options_tiers);
+        });
+    </script>
+
+{% endblock %}

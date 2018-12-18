@@ -1,0 +1,13 @@
+bank_account_index:
+    path:     /
+    defaults: { _controller: "BankBundle:Account:index" }
+    methods:  GET
+bank_account_new:
+    path:     /new
+    defaults: { _controller: "BankBundle:Account:new" }
+    methods:  [GET, POST]
+
+bank_account_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BankBundle:Account:edit" }
+    methods:  [GET, POST]

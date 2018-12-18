@@ -1,0 +1,46 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<div class="login_wrapper">
+    <div class="animate form login_form">
+        <section class="login_content">
+
+
+
+            <form class="login__form" action="{{ path("fos_user_security_check") }}" method="post">
+                <h1><i class="fa fa-money"></i> Gobelin<br/><small>L'argent c'est mieux quand on en a</small></h1>
+
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% endif %}
+                <div class="form-group">
+                    <input type="text" id="username" class='form-control' name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans }}" autocomplete="username" />
+                </div>
+                <div class="form-group">
+
+                    <input type="password"  class='form-control'  id="password" name="_password" required="required"  placeholder="{{ 'security.login.password'|trans }}" autocomplete="current-password" />
+                </div>
+                <div class="form-group login__action">
+                    <div class="checkbox login__remember">
+                        <input type="checkbox" id="chb1" name="_remember_me" value="on" >
+                        <label for="chb1">{{ 'security.login.remember_me'|trans }}</label>
+                    </div>
+                    <div class="login__submit">
+                        <input type="submit" class="btn btn-default"  id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                    <p>©2018 All Rights Reserved.</p>
+                </div>
+            </form>
+
+
+        </section>
+    </div>
+

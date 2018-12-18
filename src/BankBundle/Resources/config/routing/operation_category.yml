@@ -1,0 +1,15 @@
+bank_operation_category_new:
+    path:     /{id}/new
+    defaults: { _controller: "BankBundle:OperationCategory:new" }
+    methods:  [GET, POST]
+bank_operation_category_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BankBundle:OperationCategory:edit" }
+    methods:  [GET, POST]
+operation_category_json:
+    path:     /list
+    defaults: { _controller: "BankBundle:OperationCategory:jsonList" }
+bank_operation_category_index:
+    path:     /{id}/
+    defaults: { _controller: "BankBundle:OperationCategory:index" }
+    methods:  GET

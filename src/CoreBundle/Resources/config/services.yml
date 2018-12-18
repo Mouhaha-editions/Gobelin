@@ -1,0 +1,5 @@
+services:
+    version:
+        public: true
+        class: CoreBundle\Service\VersionService
+        arguments: []

@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    {{ account.label }}
+                    <small>{{ account.description }}</small>
+                {% endblock %}
+                {% block panel_button %}
+                    <a class="text-right" href="{{ url('bank_operation_new',{id:account.id}) }}">Ajouter</a>
+                {% endblock %}
+                {% block panel_body %}
+                    <table class="table">
+                        <tr>
+                            <th>Date</th>
+                            <th>Label</th>
+                            <th>Categorie</th>
+                            <th>Tiers</th>
+                            <th>Montant</th>
+                            <th style="width:15%"></th>
+                        </tr>
+                        {% for operation in operations.entities %}
+                            <tr>
+                                <td>{{ operation.date.format('d/m/Y') }}</td>
+                                <td>{{ operation.label }}</td>
+                                <td>{{ operation.category.label }}</td>
+                                <td>{{ operation.tiers.label }}</td>
+                                <td class="text-right bold text-{% if operation.amount > 0 %}success{% else %}danger{% endif %}">{{ operation.amount|number_format(2,',',' ') }}
+                                    &euro;
+                                </td>
+                                <td class="text-right">
+                                    {% if operation.pointed %}
+                                        <a href="{{ url('bank_operation_pointed',{id:operation.id}) }}"
+                                           class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
+                                    {% else %}
+                                        <a href="{{ url('bank_operation_pointed',{id:operation.id}) }}"
+                                           class="btn btn-xs btn-danger"><i class="fa fa-close"></i></a>
+                                    {% endif %}
+                                    <a href="{{ url('bank_operation_edit',{id:operation.id}) }}"
+                                       class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('bank_operation_delete',{id:operation.id}) }}"
+                                       class="btn btn-xs confirm btn-danger"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-4">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Récurrences
+                {% endblock %}
+                {% block panel_button %}
+                    <a class="text-right" href="{{ url('bank_recurrence_new',{id:account.id}) }}">Ajouter</a>
+                {% endblock %}
+                {% block panel_body %}
+                    <table class="table">
+                        <tr>
+                            <th>Label</th>
+                            <th>Du</th>
+                            <th>Au</th>
+                            <th>Montant</th>
+                            <th></th>
+                        </tr>
+                        {% for recurrence in recurrences %}
+                            <tr>
+                                <td>{{ recurrence.label }}</td>
+                                <td>{{ recurrence.startDate.format('d/m/Y') }}</td>
+                                <td>{{ recurrence.endDate.format('d/m/Y') }}</td>
+                                <td class="text-right">{{ recurrence.amount|number_format(2,',',' ') }} &euro;</td>
+                                <td><a href="#" class="btn btn-xs btn-success"><i class="fa fa-check"></i></a></td>
+                                <td>
+                                    <a href="{{ url('bank_recurrence_edit',{id:operation.id}) }}"
+                                       class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('bank_recurrence_delete',{id:operation.id}) }}"
+                                       class="btn btn-xs confirm btn-danger"><i class="fa fa-trash"></i></a>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock %}

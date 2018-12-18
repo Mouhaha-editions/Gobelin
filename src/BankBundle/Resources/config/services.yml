@@ -1,0 +1,4 @@
+services:
+    bank.account:
+        class: BankBundle\Service\AccountService
+        arguments: ["@doctrine.orm.entity_manager"]

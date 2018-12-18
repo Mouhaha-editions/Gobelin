@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Ajouter/Modifier un compte
+                {% endblock %}
+                {% block panel_body %}
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" class="btn" value="Enregistrer"/>
+                    {{ form_end(form) }}
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+
+{% endblock %}

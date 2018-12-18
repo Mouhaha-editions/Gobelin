@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row tile_count">
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i
+                        class="fa fa-eur"></i> Chiffre d'affaire {{ (date('now').format('Y'))-1 }}</span>
+            <div class="count">{{ ca_last_year|number_format(2,',',' ') }} &euro;</div>
+            <span class="count_bottom">Mais ca c'était avant ...</span>
+        </div>
+
+        {% set progression = (ca_this_year / ca_last_year * 100) %}
+        {% set color = progression <=0 ? 'red':'green' %}
+        {% set sort = progression <=0 ? 'desc':'asc' %}
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-eur"></i> Chiffre d'affaire {{ date('now').format('Y') }}</span>
+            <div class="count {{ color }}">{{ ca_this_year|number_format(2,',',' ') }} &euro;</div>
+            <span class="count_bottom"><i class="{{ color }}"><i
+                            class="fa fa-sort-{{ sort }}"></i>{{ progression|number_format(0,',',' ') }}% </i>
+            {% if progression < 0 %}
+                Mouai .. peut faire mieux ...
+            {% elseif progression < 10 %}
+                Mouai ...
+            {% elseif progression < 50 %}
+                C'est un bon début !
+            {% elseif progression < 100 %}
+                Wahoo .. respect !
+            {% else %}
+                Incroyable, je n'en reviens pas !
+            {% endif %}</span>
+        </div>
+        {% set color = service_settings.get('mon_compte') <=0 ? 'red':'green' %}
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i
+                        class="fa fa-bank"></i> Compte en banque (à ce jour)</span>
+            <div class="count {{ color }}">{{ (service_settings.get('mon_compte')/100)|number_format(2,',',' ') }} &euro;</div>
+            <span class="count_bottom">On est riche ! ou pas ...</span>
+        </div>
+
+    </div>
+    <div class="row">
+
+
+        <div class="col-md-4">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}R.D.V du jour
+                {% endblock %}
+                {% block panel_body %}
+                    <div class="sp-widget">
+                        <div class="sp-widget__wrap scrollable scrollbar-macosx">
+                            <div class="sp-widget__cont">
+                                <div class="sp-widget__top">
+                                    <div class="sp-widget__info">
+                                        <div class="sp-widget__title"><i
+                                                    class="fa fa-calendar-check-o"></i><span>{{ rdv|length }}
+                                                R.D.V</span>
+                                        </div>
+                                    </div>
+                                    {#<div class="sp-widget__all"><a#}
+                                    {#class="btn btn-default btn-block"#}
+                                    {#href="inbox.html">Show All</a></div>#}
+                                </div>
+                                <div class="sp-widget__list">
+                                    {% for rd in rdv %}
+                                        <div class="sp-widget__item">
+                                            <div class="sp-widget__user"><span
+                                                        class="sp-widget__date">{{ rd.salesDocument.customer.fullName }}
+                                                    , {{ rd.date.format('H:i') }}</span>
+                                            </div>
+                                            <div class="sp-widget__text">
+                                                {% if rd.reference is not empty %} {{ rd.reference }} - {% endif %}{{ rd.label }} {% if rd.duration is not empty %}: {{ rd.duration }} min {% endif %}
+                                                <br/>
+                                                {{ rd.description }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-4">
+
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}R.D.V de demain
+                {% endblock %}
+                {% block panel_body %}
+                    <div class="sp-widget">
+                        <div class="sp-widget__wrap scrollable scrollbar-macosx">
+                            <div class="sp-widget__cont">
+                                <div class="sp-widget__top">
+                                    <div class="sp-widget__info">
+                                        <div class="sp-widget__title"><i
+                                                    class="fa fa-calendar-check-o"></i><span>{{ rdv_demain|length }}
+                                                R.D.V</span>
+                                        </div>
+                                    </div>
+                                    {#<div class="sp-widget__all"><a#}
+                                    {#class="btn btn-default btn-block"#}
+                                    {#href="inbox.html">Show All</a></div>#}
+                                </div>
+                                <div class="sp-widget__list">
+                                    {% for rd in rdv_demain %}
+                                        <div class="sp-widget__item">
+                                            <div class="sp-widget__user"><span
+                                                        class="sp-widget__date">{{ rd.salesDocument.customer.fullName }}
+                                                    , {{ rd.date.format('H:i') }}</span>
+                                            </div>
+                                            <div class="sp-widget__text">
+                                                {% if rd.reference is not empty %} {{ rd.reference }} - {% endif %}{{ rd.label }} {% if rd.duration is not empty %}: {{ rd.duration }} min {% endif %}
+                                                <br/>
+                                                {{ rd.description }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-4">
+
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}R.D.V  à venir
+                {% endblock %}
+                {% block panel_body %}
+                    <div class="sp-widget">
+                        <div class="sp-widget__wrap scrollable scrollbar-macosx">
+                            <div class="sp-widget__cont">
+                                <div class="sp-widget__top">
+                                    <div class="sp-widget__info">
+                                        <div class="sp-widget__title"><i
+                                                    class="fa fa-calendar-check-o"></i><span>{{ rdv_next|length }}
+                                                R.D.V</span>
+                                        </div>
+                                    </div>
+                                    {#<div class="sp-widget__all"><a#}
+                                    {#class="btn btn-default btn-block"#}
+                                    {#href="inbox.html">Show All</a></div>#}
+                                </div>
+                                <div class="sp-widget__list">
+                                    {% for rd in rdv_next %}
+                                        <div class="sp-widget__item">
+                                            <div class="sp-widget__user"><span
+                                                        class="sp-widget__date">{{ rd.salesDocument.customer.fullName }}
+                                                    , {{ rd.date.format('H:i') }}</span>
+                                            </div>
+                                            <div class="sp-widget__text">
+                                                {% if rd.reference is not empty %} {{ rd.reference }} - {% endif %}{{ rd.label }} {% if rd.duration is not empty %}: {{ rd.duration }} min {% endif %}
+                                                <br/>
+                                                {{ rd.description }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+
+    </div>
+
+{% endblock %}

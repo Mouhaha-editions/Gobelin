@@ -1,0 +1,82 @@
+[05-Nov-2018 20:29:47 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "AppBundle" from namespace "AppBundle".
+Did you forget a "use" statement for "\AppBundle\AppBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Component\Cons in F:\var\www\dev_project\app\AppKernel.php on line 20
+[05-Nov-2018 20:31:47 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "GoogleBundle" from namespace "GoogleBundle".
+Did you forget a "use" statement for "\GoogleBundle\GoogleBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Co in F:\var\www\dev_project\app\AppKernel.php on line 20
+[05-Nov-2018 20:36:32 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "GoogleBundle" from namespace "GoogleBundle".
+Did you forget a "use" statement for "\GoogleBundle\GoogleBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Co in F:\var\www\dev_project\app\AppKernel.php on line 20
+[05-Nov-2018 20:37:27 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "GoogleBundle" from namespace "GoogleBundle".
+Did you forget a "use" statement for "\GoogleBundle\GoogleBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Co in F:\var\www\dev_project\app\AppKernel.php on line 20
+[05-Nov-2018 20:37:57 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "GoogleBundle" from namespace "GoogleBundle".
+Did you forget a "use" statement for "\GoogleBundle\GoogleBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Co in F:\var\www\dev_project\app\AppKernel.php on line 20
+[05-Nov-2018 20:38:42 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "GoogleBundle" from namespace "GoogleBundle".
+Did you forget a "use" statement for "\GoogleBundle\GoogleBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Co in F:\var\www\dev_project\app\AppKernel.php on line 20
+[05-Nov-2018 20:40:11 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "GoogleBundle" from namespace "GoogleBundle".
+Did you forget a "use" statement for "\GoogleBundle\GoogleBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Co in F:\var\www\dev_project\app\AppKernel.php on line 20
+[05-Nov-2018 20:40:37 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "GoogleBundle" from namespace "GoogleBundle".
+Did you forget a "use" statement for "\GoogleBundle\GoogleBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Co in F:\var\www\dev_project\app\AppKernel.php on line 20
+[05-Nov-2018 20:41:17 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "GoogleBundle" from namespace "GoogleBundle".
+Did you forget a "use" statement for "\GoogleBundle\GoogleBundle"? in F:\var\www\dev_project\app\AppKernel.php:20
+Stack trace:
+#0 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\dev_project\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\dev_project\bin\console(27): Symfony\Co in F:\var\www\dev_project\app\AppKernel.php on line 20
+[19-Nov-2018 23:41:49 Europe/Paris] PHP Fatal error:  Access level to CustomerBundle\Entity\User::$id must be protected (as in class FOS\UserBundle\Model\User) or weaker in F:\var\www\dev_project\src\CoreBundle\Entity\User.php on line 17
+[09-Dec-2018 14:01:56 Europe/Paris] PHP Fatal error:  Scalar type declaration 'int' must be unqualified in F:\var\www\dev_project\src\BankBundle\Entity\Recurence.php on line 172
+[18-Dec-2018 00:26:13 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\ClassNotFoundException: Attempted to load class "CustomerBundle" from namespace "CustomerBundle".
+Did you forget a "use" statement for another namespace? in F:\var\www\Gobelin\app\AppKernel.php:25
+Stack trace:
+#0 F:\var\www\Gobelin\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(488): AppKernel->registerBundles()
+#1 F:\var\www\Gobelin\vendor\symfony\symfony\src\Symfony\Component\HttpKernel\Kernel.php(132): Symfony\Component\HttpKernel\Kernel->initializeBundles()
+#2 F:\var\www\Gobelin\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle\Console\Application.php(64): Symfony\Component\HttpKernel\Kernel->boot()
+#3 F:\var\www\Gobelin\vendor\symfony\symfony\src\Symfony\Component\Console\Application.php(148): Symfony\Bundle\FrameworkBundle\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 F:\var\www\Gobelin\bin\console(27): Symfony\Component\Console\Application->ru in F:\var\www\Gobelin\app\AppKernel.php on line 25

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        {% for account in accounts %}
+            <div class="col-md-3">
+
+                {% embed 'embeded/panel.html.twig' %}
+                    {% block panel_title %}
+                        {{ account.label }}
+                    {% endblock %}
+                    {% block panel_button %}
+                        <a class="text-right" href="{{ url('bank_account_edit',{id:account.id}) }}">modifier</a>
+                    {% endblock %}
+                    {% block panel_body %}
+                        <div class="text-center">
+                            {{ account.description }}<br/>
+                            {% set amount = service_bank_account.amountPointed(account) %}
+                            {% set amount = amount is null ? 0 : amount %}
+                            <b class="text-{% if amount > 0 %}success{% else %}danger{% endif %}">{{ amount|number_format(2,',',' ') }} &euro;</b><br/>
+                            <a href="{{ url('bank_operation_index',{id:account.id}) }}">Ouvrir</a>
+                        </div>
+                    {% endblock %}
+                {% endembed %}
+            </div>
+        {% endfor %}
+        <div class="col-md-3">
+
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Ajouter un compte
+                {% endblock %}
+
+                {% block panel_body %}
+                    <div class="text-center">
+                        <a href="{{ url('bank_account_new') }}" class="btn btn-block btn-info btn-default btn-large"><i class="fa fa-plus"></i></a>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock %}
