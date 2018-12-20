@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Account controller.
@@ -77,8 +78,6 @@ class OperationController extends Controller
             ->setParameter('account', $account)
             ->orderBy('o.start_date', 'desc')
             ->getQuery()->getResult();
-
-
         return $this->render('@Bank/Operation/index.html.twig', array(
             'account' => $account,
             'form' => $form->createView(),
@@ -87,6 +86,65 @@ class OperationController extends Controller
         ));
     }
 
+
+    public function statistiquesAction(Request $request, Account $account)
+    {
+        $data = [
+            'startDate' => (new \DateTime())->modify('-1 months'),
+            'endDate' => (new \DateTime())->modify('+1 months'),
+        ];
+        $form = $this->createFormBuilder($data, ['method' => 'get']);
+        $form->add('startDate', DateType::class, [
+            'format' => DateType::HTML5_FORMAT,
+            'widget' => 'single_text',
+            'required' => true,
+            'attr' => ['placeholder' => "recurrence.placeholder.startDate"],
+            'label' => 'recurrence.label.startDate'
+        ])
+            ->add('endDate', DateType::class, [
+                'format' => DateType::HTML5_FORMAT,
+                'widget' => 'single_text',
+                'required' => false,
+                'attr' => ['placeholder' => "recurrence.placeholder.endDate"],
+                'label' => 'recurrence.label.endDate'
+            ])
+            ->add('voir', SubmitType::class);
+
+
+        $form = $form->getForm();
+        $form->handleRequest($request);
+        $start = $form->get('startDate')->getData();
+        $end = $form->get('endDate')->getData();
+
+        $amountOutByCategory = $this->get('bank.account')->getAmountOutDateToDateByCategory($account, $start, $end);
+        $amountInByCategory = $this->get('bank.account')->getAmountInDateToDateByCategory($account, $start, $end);
+
+        $totalOut = array_sum(array_map(function($r){
+            return $r['value'];
+        },$amountOutByCategory));
+
+        $totalIn = array_sum(array_map(function($r){
+            return $r['value'];
+        },$amountInByCategory));
+
+        $ratio= -1* $totalOut / ($totalIn ==0? 0.0000000001:$totalIn) *100;
+        $amountOutDayByDay = $this->get('bank.account')->getAmountOutDayByDayDateToDate($account, $start, $end);
+        $amountInDayByDay = $this->get('bank.account')->getAmountInDayByDayDateToDate($account, $start, $end);
+
+
+        return $this->render('@Bank/Operation/stats.html.twig',[
+            'form' => $form->createView(),
+            'amountOutByCategory' => $amountOutByCategory,
+            'amountInByCategory' => $amountInByCategory,
+            'amountOutDayByDay' => $amountOutDayByDay,
+            'amountInDayByDay' => $amountInDayByDay,
+            'totalOut' => $totalOut,
+            'totalIn' => $totalIn,
+            'ratio' => $ratio,
+
+        ]);
+    }
+    
     /**
      * Creates a new account entity.
      * @param Request $request
@@ -133,7 +191,6 @@ class OperationController extends Controller
             $category = $form->get('category_text')->getData();
             $id_tiers = $form->get('tiers')->getData();
             $tiers = $form->get('tiers_text')->getData();
-
             if ($id_category != null) {
                 $category_entity = $this->getDoctrine()->getRepository('BankBundle:OperationCategory')->find($id_category);
             } else {
@@ -192,7 +249,6 @@ class OperationController extends Controller
             $this->addFlash('success', "Operation supprimée");
         } catch (\Exception $e) {
             $this->addFlash('danger', "Erreur");
-
         }
 
         return $this->redirectToRoute('bank_operation_index', ['id' => $account_id]);

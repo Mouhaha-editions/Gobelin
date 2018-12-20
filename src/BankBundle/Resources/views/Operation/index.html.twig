@@ -8,6 +8,9 @@
                 {% block panel_title %}
                     Voir
                 {% endblock %}
+                {% block panel_button %}
+                    <a class="text-right" href="{{ url('bank_operation_stats',{id:account.id}) }}">Statistiques</a>
+                {% endblock %}
                 {% block panel_body %}
                     <div class="row">
                         {{ form_start(form) }}
@@ -137,7 +140,6 @@
            $.ajax({
                url: url,
                success:function(data){
-                   console.log()
                    if(t.is('.btn-danger')){
                        t.removeClass('btn-danger');
                        t.addClass('btn-success');

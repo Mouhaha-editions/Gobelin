@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block body %}
+    <div class="row tile_count">
+        <div class="col-md-12">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Voir
+                {% endblock %}
+                {% block panel_body %}
+                    <div class="row">
+                        {{ form_start(form) }}
+                        <div class="col-md-4">{{ form_row(form.startDate) }}</div>
+                        <div class="col-md-4">{{ form_row(form.endDate) }}</div>
+                        <div class="col-md-4">{{ form_row(form.voir) }}</div>
+                        {{ form_end(form) }}
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Entrées d'argent
+                {% endblock %}
+                {% block panel_body %}
+                    <h2 class="text-center">{{ totalIn|number_format(2,',','') }} &euro;</h2>
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-4">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Sorties d'argent
+                {% endblock %}
+                {% block panel_body %}
+                    <h2 class="text-center">{{ totalOut|number_format(2,',','') }} &euro;</h2>
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-4">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Ratio
+                {% endblock %}
+                {% block panel_body %}
+                    <h2 class="text-center">{{ ratio|number_format(2,',','') }} %</h2>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    D'où que ça vient ?
+                {% endblock %}
+                {% block panel_body %}
+                    <div id="arrive" style="height: 400px;"></div>
+
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-4">
+
+
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Où que c'est passé ?
+                {% endblock %}
+                {% block panel_body %}
+                    <div id="parti" style="height: 400px;"></div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-4">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Je sers à rien ...
+                {% endblock %}
+                {% block panel_body %}
+                    Pour le moment
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% embed 'embeded/panel.html.twig' %}
+                {% block panel_title %}
+                    Day by day
+                {% endblock %}
+                {% block panel_body %}
+                    <div id="eachDay" style="height: 400px;"></div>
+
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script>
+        var Out = {% autoescape false %}{{ (amountOutByCategory|json_encode)|raw }}{% endautoescape %};
+        var In = {% autoescape false %}{{ (amountInByCategory|json_encode)|raw }}{% endautoescape %};
+        var DayByDay = {% autoescape false %}{{ (amountOutDayByDay|json_encode)|raw }}{% endautoescape %};
+
+        $(function () {
+
+            let ctx = $("#parti");
+            new Morris.Donut({
+                // ID of the element in which to draw the chart.
+                element: 'parti',
+                // Chart data records -- each entry in this array corresponds to a point on
+                // the chart.
+                data: Out,
+                // colors: getColor(Out),
+                formatter: function (y, data) {
+                    return parseFloat(y).toFixed(2) + " €"
+                },
+                resize: true
+            });
+
+            new Morris.Donut({
+                // ID of the element in which to draw the chart.
+                element: 'arrive',
+                // Chart data records -- each entry in this array corresponds to a point on
+                // the chart.
+                data: In,
+                // colors: getColor(In),
+
+                formatter: function (y, data) {
+                    return parseFloat(y).toFixed(2) + " €"
+                },
+                resize: true
+            });
+            new Morris.Bar({
+                // ID of the element in which to draw the chart.
+                element: 'eachDay',
+                // Chart data records -- each entry in this array corresponds to a point on
+                // the chart.
+                data: DayByDay,
+                xkey: ['name'],
+                ykeys: ['value'],
+                labels: ['Montant'],
+                parseTime: true,
+                // xLabels: 'day',
+                // xLabelFormat: function(x){console.log(x);return x.src.name;},
+                yLabelFormat: function(y){return parseFloat(y).toFixed(2) + ' €';}
+                // colors: getColor(In),
+
+                // formatter: function (y, data) {
+                //     return parseFloat(y).toFixed(2) + " €"
+                // },
+                // resize: true
+            });
+
+            {#let myChart2 = echarts.init(document.getElementById('arrive'));#}
+            {#// specify chart configuration item and data#}
+            {#let option2 = {#}
+            {#tooltip: {},#}
+            {#series: [{#}
+            {#type: 'pie',#}
+            {#data: {% autoescape false %}{{ (amountInByCategory|json_encode)|raw }}{% endautoescape %}#}
+            {#}]#}
+            {#};#}
+            {#myChart2.setOption(option2);#}
+
+
+            {#let myChart3 = echarts.init(document.getElementById('eachDay'));#}
+            {#// specify chart configuration item and data#}
+            {#let option3 = {#}
+            {#tooltip: {},#}
+            {#series: [{#}
+            {#type: 'pie',#}
+            {#data: {% autoescape false %}{{ (amountDayByDay|json_encode)|raw }}{% endautoescape %}#}
+            {#}]#}
+            {#};#}
+            {#myChart3.setOption(option3);#}
+        });
+    </script>
+{% endblock %}

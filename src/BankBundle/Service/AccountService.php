@@ -15,6 +15,7 @@ use BankBundle\Entity\OperationCategory;
 use BankBundle\Entity\Recurrence;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\VarDumper\VarDumper;
 
 class AccountService
 {
@@ -172,5 +173,108 @@ class AccountService
             }
             $start->modify($modify);
         }
+    }
+
+    /**
+     * @param Account $account
+     * @param $from
+     * @param $to
+     * @return array
+     */
+    public function getAmountOutDateToDateByCategory(Account $account, $from, $to)
+    {
+        return  $this->em->getRepository('BankBundle:Operation')
+            ->createQueryBuilder('o')
+            ->leftJoin('o.category', 'c')
+            ->select('SUM(o.amount) AS value, c.label AS label')
+            ->where('o.date <= :to')
+            ->andWhere('o.date >=  :from')
+            ->andWhere('o.amount < 0')
+            ->andWhere('o.account = :account')
+            ->andWhere('(o.budget = :false OR o.amount < 0)')
+            ->andWhere('o.deleted = :false')
+            ->setParameter('account', $account)
+            ->setParameter('to', $to)
+            ->setParameter('from', $from)
+            ->setParameter('false', false)
+            ->groupBy('c.id')
+            ->getQuery()->getScalarResult();
+    }
+
+    /**
+     * @param Account $account
+     * @param $from
+     * @param $to
+     * @return array
+     */
+    public function getAmountInDateToDateByCategory(Account $account, $from, $to)
+    {
+        return  $this->em->getRepository('BankBundle:Operation')
+            ->createQueryBuilder('o')
+            ->leftJoin('o.category', 'c')
+            ->select('SUM(o.amount) AS value, c.label AS label')
+            ->where('o.date <= :to')
+            ->andWhere('o.date >=  :from')
+            ->andWhere('o.amount > 0')
+            ->andWhere('o.account = :account')
+            ->andWhere('(o.budget = :false OR o.amount < 0)')
+            ->andWhere('o.deleted = :false')
+            ->setParameter('account', $account)
+            ->setParameter('to', $to)
+            ->setParameter('from', $from)
+            ->setParameter('false', false)
+            ->groupBy('c.id')
+            ->getQuery()->getScalarResult();
+    }
+
+    /**
+     * @param Account $account
+     * @param $from
+     * @param $to
+     * @return array
+     */
+    public function getAmountOutDayByDayDateToDate(Account $account, $from, $to)
+    {
+        return ($this->em->getRepository('BankBundle:Operation')
+            ->createQueryBuilder('o')
+            ->leftJoin('o.category', 'c')
+            ->select('SUM(o.amount) AS value, o.date AS name')
+            ->where('o.date <= :to')
+            ->andWhere('o.date >=  :from')
+            ->andWhere('o.amount < 0')
+            ->andWhere('o.account = :account')
+            ->andWhere('(o.budget = :false OR o.amount < 0)')
+            ->andWhere('o.deleted = :false')
+            ->setParameter('account', $account)
+            ->setParameter('to', $to)
+            ->setParameter('from', $from)
+            ->setParameter('false', false)
+            ->groupBy('o.date')
+            ->orderBy('name', 'ASC')
+            ->getQuery()->getScalarResult());
+    }/**
+     * @param Account $account
+     * @param $from
+     * @param $to
+     * @return array
+     */
+    public function getAmountInDayByDayDateToDate(Account $account, $from, $to)
+    {
+        return  $this->em->getRepository('BankBundle:Operation')
+            ->createQueryBuilder('o')
+            ->leftJoin('o.category', 'c')
+            ->select('SUM(o.amount) AS value, c.label AS name')
+            ->where('o.date <= :to')
+            ->andWhere('o.date >=  :from')
+            ->andWhere('o.amount > 0')
+            ->andWhere('o.account = :account')
+            ->andWhere('(o.budget = :false OR o.amount < 0)')
+            ->andWhere('o.deleted = :false')
+            ->setParameter('account', $account)
+            ->setParameter('to', $to)
+            ->setParameter('from', $from)
+            ->setParameter('false', false)
+            ->groupBy('c.id')
+            ->getQuery()->getScalarResult();
     }
 }

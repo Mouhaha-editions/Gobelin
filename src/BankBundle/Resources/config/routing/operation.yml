@@ -1,15 +1,23 @@
 bank_operation_index:
     path:     /{id}
     defaults: { _controller: "BankBundle:Operation:index" }
+
 bank_operation_new:
-    path:     /{id}/new
+    path:     /new/{id}
     defaults: { _controller: "BankBundle:Operation:new" }
+
 bank_operation_edit:
-    path:     /{id}/edit
+    path:     /edit/{id}
     defaults: { _controller: "BankBundle:Operation:edit" }
+
 bank_operation_delete:
-    path:     /{id}/delete
+    path:     /delete/{id}
     defaults: { _controller: "BankBundle:Operation:delete" }
+
 bank_operation_pointed:
-    path:     /{id}/pointed
+    path:     /pointed/{id}
     defaults: { _controller: "BankBundle:Operation:pointed" }
+
+bank_operation_stats:
+    path:     /stats/{id}
+    defaults: { _controller: "BankBundle:Operation:statistiques" }
