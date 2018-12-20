@@ -46,7 +46,7 @@
                 {% block panel_body %}
                     <table class="table">
                         <tr>
-                            <th>Date</th>
+                            <th>Date/Num chèque</th>
                             <th>Label</th>
                             <th>Categorie</th>
                             <th>Tiers</th>
@@ -55,7 +55,7 @@
                         </tr>
                         {% for operation in operations.entities %}
                             <tr {% if operation.budget %}class="bg-warning" title="je suis un budget" {% endif %}>
-                                <td>{{ operation.date.format('d/m/Y') }}</td>
+                                <td>{{ operation.date.format('d/m/Y') }}{% if operation.referenceCheque is not empty  %}<br/>n° {{ operation.referenceCheque }}{% endif %}</td>
                                 <td>{{ operation.label }}</td>
                                 <td>{{ operation.category.label }}</td>
                                 <td>{{ operation.tiers.label }}</td>
@@ -68,10 +68,10 @@
                                     {% if not operation.budget %}
                                     {% if operation.pointed %}
                                         <a href="{{ url('bank_operation_pointed',{id:operation.id}) }}"
-                                           class="btn btn-xs btn-success"><i class="fa fa-check"></i></a>
+                                           class="btn btn-xs btn-success ajax-switch"><i class="fa fa-check"></i></a>
                                     {% else %}
                                         <a href="{{ url('bank_operation_pointed',{id:operation.id}) }}"
-                                           class="btn btn-xs btn-danger"><i class="fa fa-close"></i></a>
+                                           class="btn btn-xs btn-danger ajax-switch"><i class="fa fa-close"></i></a>
                                     {% endif %}
                                     {% endif %}
                                     <a href="{{ url('bank_operation_edit',{id:operation.id}) }}"
@@ -127,4 +127,32 @@
             {% endembed %}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(function(){
+       $('.ajax-switch').on('click', function(){
+           let t = $(this);
+           var url = t.attr('href');
+           $.ajax({
+               url: url,
+               success:function(data){
+                   console.log()
+                   if(t.is('.btn-danger')){
+                       t.removeClass('btn-danger');
+                       t.addClass('btn-success');
+                       t.find('i.fa').removeClass('fa-close');
+                       t.find('i.fa').addClass('fa-check');
+                   }else{
+                       t.addClass('btn-danger');
+                       t.removeClass('btn-success');
+                       t.find('i.fa').addClass('fa-close');
+                       t.find('i.fa').removeClass('fa-check');
+                   }
+               }
+           });
+           return false;
+       }) ;
+    });
+</script>
 {% endblock %}
