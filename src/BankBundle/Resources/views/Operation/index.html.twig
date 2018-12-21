@@ -111,7 +111,7 @@
                         </tr>
                         {% for recurrence in recurrences %}
                             <tr {% if recurrence.budget %}class="bg-warning" title="je suis un budget" {% endif %}>
-                                <td>{{ recurrence.label }}</td>
+                                <td><span title="{{ recurrence.category.label }} / {{ recurrence.tiers.label }}">{{ recurrence.label }}</span></td>
                                 <td>{{ recurrence.startDate.format('d/m/Y') }}</td>
                                 <td>{{ recurrence.endDate is null ? "infini":recurrence.endDate.format('d/m/Y') }}</td>
                                 <td class="text-right">{{ recurrence.amount|number_format(2,',',' ') }} &euro;</td>
