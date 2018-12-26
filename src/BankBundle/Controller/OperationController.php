@@ -216,10 +216,10 @@ class OperationController extends Controller
             }
             $operation->setTiers($tiers_entity);
             $tiers_entity->addOperation($operation);
-            $this->get('bank.account')->budgetMethod($operation);
 
             $this->getDoctrine()->getManager()->persist($operation);
             $this->getDoctrine()->getManager()->flush();
+            $this->get('bank.account')->budgetMethod($operation);
 
             $this->addFlash('success', "Operation enregistrée");
             if ($request->get('add_one', false)) {

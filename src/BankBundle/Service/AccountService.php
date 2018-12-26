@@ -35,6 +35,7 @@ class AccountService
            ->orderBy('a.label', 'ASC')
            ->getQuery()->getResult();
     }
+
     public function budgetMethod(Operation $operation, $delete = false)
     {
         /** @var Operation $budget */

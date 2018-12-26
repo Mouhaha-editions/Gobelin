@@ -53,7 +53,7 @@ class RecurrenceType extends AbstractType
                 'label' => 'recurrence.label.endDate'
             ])
             ->add('amount', TextType::class, ['label'=>'recurrence.label.amount'])
-            ->add('budget', CheckboxType::class, ['label'=>'recurrence.label.budget'])
+            ->add('budget', CheckboxType::class, ['label'=>'recurrence.label.budget','required'=>false])
         ;
     }
 
