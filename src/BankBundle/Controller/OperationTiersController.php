@@ -3,7 +3,9 @@
 namespace BankBundle\Controller;
 
 use BankBundle\Entity\Account;
+use BankBundle\Entity\OperationTiers;
 use BankBundle\Form\AccountType;
+use BankBundle\Form\OperationTiersType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,10 +24,10 @@ class OperationTiersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $accounts = $em->getRepository('BankBundle:Account')->findAll();
+        $entities = $em->getRepository('BankBundle:OperationTiers')->createQueryBuilder('t')->orderBy('t.label','asc')->getQuery()->getResult();
 
-        return $this->render('@Bank/Account/index.html.twig', array(
-            'accounts' => $accounts,
+        return $this->render('@Bank/Tiers/index.html.twig', array(
+            'entities' => $entities,
         ));
     }
 
@@ -36,30 +38,30 @@ class OperationTiersController extends Controller
      */
     public function newAction(Request $request)
     {
-        $account = new Account();
-     return $this->editAction($request, $account);
+        $entity = new OperationTiers();
+     return $this->editAction($request, $entity);
     }
 
     /**
      * Displays a form to edit an existing account entity.
      * @param Request $request
-     * @param Account $account
+     * @param OperationTiers $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, Account $account)
+    public function editAction(Request $request, OperationTiers $entity)
     {
-        $editForm = $this->createForm(AccountType::class, $account);
+        $editForm = $this->createForm(OperationTiersType::class, $entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->persist($account);
+            $this->getDoctrine()->getManager()->persist($entity);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('bank_account_index');
+            return $this->redirectToRoute('bank_operation_tiers_index');
         }
 
-        return $this->render('@Bank/Account/edit.html.twig', array(
-            'account' => $account,
+        return $this->render('@Bank/Tiers/edit.html.twig', array(
+            'entity' => $entity,
             'form' => $editForm->createView(),
         ));
     }

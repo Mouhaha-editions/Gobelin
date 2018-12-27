@@ -12,6 +12,10 @@ security:
 
     firewalls:
         main:
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 6048000 # 1 week in seconds
+                path:     /
             switch_user: true
             pattern: ^/
             form_login:

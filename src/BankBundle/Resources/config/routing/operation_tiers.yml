@@ -1,13 +1,13 @@
 bank_operation_tiers_index:
-    path:     /{id}/
+    path:     /
     defaults: { _controller: "BankBundle:OperationTiers:index" }
     methods:  GET
 bank_operation_tiers_new:
-    path:     /{id}/new
+    path:     /new
     defaults: { _controller: "BankBundle:OperationTiers:new" }
     methods:  [GET, POST]
 
 bank_operation_tiers_edit:
-    path:     /{id}/edit
+    path:     /edit/{id}
     defaults: { _controller: "BankBundle:OperationTiers:edit" }
     methods:  [GET, POST]

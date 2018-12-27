@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        {% embed 'embeded/panel.html.twig' %}
+            {% block panel_title %}
+                Tiers
+            {% endblock %}
+            {% block panel_button %}
+                <a class="text-right" href="{{ url('bank_operation_tiers_new') }}">Ajouter</a>
+            {% endblock %}
+            {% block panel_body %}
+
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <th>Label</th>
+                    </tr>
+                    {% for entity in entities %}
+                        <tr>
+                            <th><a href="{{ url('bank_operation_tiers_edit',{id:entity.id}) }}">{{ entity.label }}</a></th>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            {% endblock %}
+        {% endembed %}
+    </div>
+</div>
+{% endblock %}

@@ -197,7 +197,7 @@ class OperationController extends Controller
                 $category_entity = $this->getDoctrine()->getRepository('BankBundle:OperationCategory')->findOneBy(['label' => $category]);
                 if ($category_entity === null) {
                     $category_entity = new OperationCategory();
-                    $category_entity->setLabel(ucfirst(strtolower($category)));
+                    $category_entity->setLabel($category);
                     $this->getDoctrine()->getManager()->persist($category_entity);
                 }
             }
@@ -210,7 +210,7 @@ class OperationController extends Controller
                 $tiers_entity = $this->getDoctrine()->getRepository('BankBundle:OperationTiers')->findOneBy(['label' => $tiers]);
                 if ($tiers_entity === null) {
                     $tiers_entity = new OperationTiers();
-                    $tiers_entity->setLabel(ucfirst(strtolower($tiers)));
+                    $tiers_entity->setLabel($tiers);
                     $this->getDoctrine()->getManager()->persist($tiers_entity);
                 }
             }

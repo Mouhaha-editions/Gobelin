@@ -64,8 +64,21 @@
                                     <li {% if app.request.get('_route') starts with 'bank_account_index' %}class="active"{% endif %}>
                                         <a href="{{ url('bank_account_index') }}">Tous</a></li>
                                     {#<li {% if app.request.get('_route') starts with 'account_payment_new' %}class="active"{% endif %}>#}
-                                        {#<a href="{{ url('account_payment_new') }}">Ajouter paiement</a>#}
+                                    {#<a href="{{ url('account_payment_new') }}">Ajouter paiement</a>#}
                                     {#</li>#}
+                                </ul>
+                            </li>
+                            <li class="{% if app.request.get('_route') starts with 'bank_operation_category' or  app.request.get('_route') starts with 'bank_operation_tiers' %}active{% endif %}">
+                                <a><i class="fa fa-wrench"></i> Règlages <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu {">
+
+                                    <li class="{% if app.request.get('_route') starts with 'bank_operation_category' %}active{% endif %}">
+                                        <a href="{{ url('bank_operation_category_index') }}">Catégories</a>
+                                    </li>
+                                    <li class="{% if app.request.get('_route') starts with 'bank_operation_tiers' %}active{% endif %}">
+                                        <a href="{{ url('bank_operation_tiers_index') }}">Tiers</a>
+                                    </li>
+
                                 </ul>
                             </li>
                             <li class="{% if app.request.get('_route') starts with 'changelog' %}active{% endif %}">
