@@ -87,8 +87,9 @@
 
                     </table>
                     {% import '@Pagination/Pagination/macro.twig' as macro_page %}
+                    <div class="pagination">
                     page: {{ macro_page.paginate(operations) }}
-
+                    </div>
                 {% endblock %}
             {% endembed %}
         </div>
