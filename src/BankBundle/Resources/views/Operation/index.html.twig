@@ -51,8 +51,7 @@
                         <tr>
                             <th>Date/Num chèque</th>
                             <th>Label</th>
-                            <th>Categorie</th>
-                            <th>Tiers</th>
+                            <th>Catégorie / Tiers</th>
                             <th>Montant</th>
                             <th style="width:15%"></th>
                         </tr>
@@ -60,8 +59,7 @@
                             <tr {% if operation.budget %}class="bg-warning" title="je suis un budget" {% endif %}>
                                 <td>{{ operation.date.format('d/m/Y') }}{% if operation.referenceCheque is not empty  %}<br/>n° {{ operation.referenceCheque }}{% endif %}</td>
                                 <td>{{ operation.label }}</td>
-                                <td>{{ operation.category.label }}</td>
-                                <td>{{ operation.tiers.label }}</td>
+                                <td>{{ operation.category.label }}<br/>{{ operation.tiers.label }}</td>
                                 <td class="text-right bold text-{% if operation.amount > 0 %}success{% else %}danger{% endif %}">
                                     {% if operation.budget and operation.amount > 0 %}<s title="budget explosé ! ">{{ operation.amount|number_format(2,',',' ') }}
                                         &euro;</s>{% else %}{{ operation.amount|number_format(2,',',' ') }}
