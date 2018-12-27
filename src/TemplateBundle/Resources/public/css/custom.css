@@ -6,3 +6,7 @@
     font-size:16px;
     font-weight: bold;
 }
+.pagination a.font-bold {
+    background: #ffffff;
+    color:#0f6674;
+}
