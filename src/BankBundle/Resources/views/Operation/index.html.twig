@@ -22,16 +22,20 @@
                 {% endblock %}
             {% endembed %}
         </div>
-        <div class="col-md-3 col-xs-6 tile_stats_count">
+        <div class="col-md-3 col-xs-6 tile_stats_count esti">
             <span class="count_top"><i class="fa fa-eur"></i> Estimation</span>
             {% set esti_1 = service_bank_account.getAmountPointed(account) %}
-            <div class="count {% if esti_1 > 0 %}green{% else %}red{% endif %}">{{ esti_1|number_format(2,',',' ') }} €</div>
+            <div class="count {% if esti_1 > 0 %}green{% else %}red{% endif %}"><div class="amount" style="display: inline-block">{{ esti_1|number_format(2,',',' ') }}</div>
+                €
+            </div>
             <span class="count_bottom">il n'y a que les pointées</span>
         </div>
-        <div class="col-md-3 col-xs-6 tile_stats_count">
+        <div class="col-md-3 col-xs-6 tile_stats_count esti">
             <span class="count_top"><i class="fa fa-eur"></i> Estimation</span>
             {% set esti_2 = service_bank_account.getAmountToDate(account,form.endDate.vars.data) %}
-            <div class="count {% if esti_2 > 0 %}green{% else %}red{% endif %}">{{ esti_2|number_format(2,',',' ') }} €</div>
+            <div class="count {% if esti_2 > 0 %}green{% else %}red{% endif %}"><div class="amount" style="display: inline-block">{{ esti_2|number_format(2,',',' ') }}</div>
+                €
+            </div>
             <span class="count_bottom">Tout, jusqu'a la date du : {{ form.endDate.vars.data.format('d/m/Y') }}</span>
         </div>
 
@@ -56,24 +60,28 @@
                             <th style="width:15%"></th>
                         </tr>
                         {% for operation in operations.entities %}
-                            <tr {% if operation.budget %}class="bg-warning" title="je suis un budget" {% endif %}>
-                                <td>{{ operation.date.format('d/m/Y') }}{% if operation.referenceCheque is not empty  %}<br/>n° {{ operation.referenceCheque }}{% endif %}</td>
+                            <tr data-operation="{{ operation.id }}" {% if operation.budget %}class="bg-warning"
+                                title="je suis un budget" {% endif %}>
+                                <td>{{ operation.date.format('d/m/Y') }}{% if operation.referenceCheque is not empty %}
+                                        <br/>n° {{ operation.referenceCheque }}{% endif %}</td>
                                 <td>{{ operation.label }}</td>
                                 <td>{{ operation.category.label }}<br/>{{ operation.tiers.label }}</td>
-                                <td class="text-right bold text-{% if operation.amount > 0 %}success{% else %}danger{% endif %}">
-                                    {% if operation.budget and operation.amount > 0 %}<s title="budget explosé ! ">{{ operation.amount|number_format(2,',',' ') }}
+                                <td class="text-right bold text-{% if operation.amount > 0 %}success{% else %}danger{% endif %} amount">
+                                    {% if operation.budget and operation.amount > 0 %}<s
+                                            title="budget explosé ! ">{{ operation.amount|number_format(2,',',' ') }}
                                         &euro;</s>{% else %}{{ operation.amount|number_format(2,',',' ') }}
-                            &euro;{% endif %}
+                                        &euro;{% endif %}
                                 </td>
                                 <td class="text-right">
                                     {% if not operation.budget %}
-                                    {% if operation.pointed %}
-                                        <a href="{{ url('bank_operation_pointed',{id:operation.id}) }}"
-                                           class="btn btn-xs btn-success ajax-switch"><i class="fa fa-check"></i></a>
-                                    {% else %}
-                                        <a href="{{ url('bank_operation_pointed',{id:operation.id}) }}"
-                                           class="btn btn-xs btn-danger ajax-switch"><i class="fa fa-close"></i></a>
-                                    {% endif %}
+                                        {% if operation.pointed %}
+                                            <a href="{{ url('bank_operation_pointed',{id:operation.id}) }}"
+                                               class="btn btn-xs btn-success ajax-switch"><i
+                                                        class="fa fa-check"></i></a>
+                                        {% else %}
+                                            <a href="{{ url('bank_operation_pointed',{id:operation.id}) }}"
+                                               class="btn btn-xs btn-danger ajax-switch"><i class="fa fa-close"></i></a>
+                                        {% endif %}
                                     {% endif %}
                                     <a href="{{ url('bank_operation_edit',{id:operation.id}) }}"
                                        class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
@@ -86,7 +94,7 @@
                     </table>
                     {% import '@Pagination/Pagination/macro.twig' as macro_page %}
                     <div class="pagination">
-                    page: {{ macro_page.paginate(operations) }}
+                        page: {{ macro_page.paginate(operations) }}
                     </div>
                 {% endblock %}
             {% endembed %}
@@ -110,10 +118,12 @@
                         </tr>
                         {% for recurrence in recurrences %}
                             <tr {% if recurrence.budget %}class="bg-warning" title="je suis un budget" {% endif %}>
-                                <td><span title="{{ recurrence.category.label }} / {{ recurrence.tiers.label }}">{{ recurrence.label }}</span></td>
+                                <td>
+                                    <span title="{{ recurrence.category.label }} / {{ recurrence.tiers.label }}">{{ recurrence.label }}</span>
+                                </td>
                                 <td>{{ recurrence.startDate.format('d/m/Y') }}</td>
                                 <td>{{ recurrence.endDate is null ? "infini":recurrence.endDate.format('d/m/Y') }}</td>
-                                <td class="text-right">{{ recurrence.amount|number_format(2,',',' ') }} &euro;</td>
+                                <td class="text-right ">{{ recurrence.amount|number_format(2,',',' ') }} &euro;</td>
                                 <td class="text-right">
                                     <a href="{{ url('bank_recurrence_edit',{id:recurrence.id}) }}"
                                        class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
@@ -131,29 +141,48 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-<script>
-    $(function(){
-       $('.ajax-switch').on('click', function(){
-           let t = $(this);
-           var url = t.attr('href');
-           $.ajax({
-               url: url,
-               success:function(data){
-                   if(t.is('.btn-danger')){
-                       t.removeClass('btn-danger');
-                       t.addClass('btn-success');
-                       t.find('i.fa').removeClass('fa-close');
-                       t.find('i.fa').addClass('fa-check');
-                   }else{
-                       t.addClass('btn-danger');
-                       t.removeClass('btn-success');
-                       t.find('i.fa').addClass('fa-close');
-                       t.find('i.fa').removeClass('fa-check');
-                   }
-               }
-           });
-           return false;
-       }) ;
-    });
-</script>
+    <script>
+        $(function () {
+            $('.ajax-switch').on('click', function () {
+                let t = $(this);
+                var url = t.attr('href');
+                $.ajax({
+                    url: url,
+                    success: function (data) {
+                        if (data.operations != null) {
+                            for (let i = 0; data.operations.length > i; i++) {
+                                let oper = data.operations[i];
+
+                                if (oper.amount.match(/^-/)) {
+                                    $('tr[data-operation=' + oper.id + ']').find('.amount').removeClass('text-success').addClass('text-danger');
+                                    $('tr[data-operation=' + oper.id + ']').find('.amount').text(oper.amount + ' €');
+
+                                } else {
+                                    $('tr[data-operation=' + oper.id + ']').find('.amount').removeClass('text-danger').addClass('text-success');
+                                    $('tr[data-operation=' + oper.id + ']').find('.amount').html('<s title="budget explosé ! ">' + oper.amount + ' €' + '</s>');
+
+                                }
+                            }
+                        }
+                        $('.esti .count .amount').each(function(){
+                           let amount = parseFloat($(this).text().replace(' ','').replace(',','.'));
+                            $(this).text( (amount+parseFloat(data.toAdd)).toFixed(2))
+                        });
+                        if (t.is('.btn-danger')) {
+                            t.removeClass('btn-danger');
+                            t.addClass('btn-success');
+                            t.find('i.fa').removeClass('fa-close');
+                            t.find('i.fa').addClass('fa-check');
+                        } else {
+                            t.addClass('btn-danger');
+                            t.removeClass('btn-success');
+                            t.find('i.fa').addClass('fa-close');
+                            t.find('i.fa').removeClass('fa-check');
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

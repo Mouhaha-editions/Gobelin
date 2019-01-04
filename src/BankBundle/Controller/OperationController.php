@@ -11,6 +11,7 @@ use BankBundle\Form\OperationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\VarDumper\VarDumper;
 
@@ -31,7 +32,7 @@ class OperationController extends Controller
     {
         $data = [
             'startDate' => (new \DateTime())->modify('-1 months'),
-            'endDate' => (new \DateTime())->modify('+1 months'),
+            'endDate' => (new \DateTime())->modify('last day of this month'),
         ];
         $form = $this->createFormBuilder($data, ['method' => 'get']);
         $form->add('startDate', DateType::class, [
@@ -164,9 +165,19 @@ class OperationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $operation->setPointed(!$operation->getPointed());
+        $op = $this->get('bank.account')->budgetMethod($operation);
         $em->flush();
 
-        return $this->redirectToRoute('bank_operation_index', ['id' => $operation->getAccount()->getId()]);
+        return new JsonResponse(['operations'=>$op != null ?[
+
+            [
+            'id'=>$op->getId(),
+            'amount'=>number_format($op->getAmount(),2,',',' '),
+            ]
+            ]: null
+        ,
+            'toAdd'=>$operation->getPointed() ? $operation->getAmount() : $operation->getAmount() * -1,
+        ]);
     }
 
     /**

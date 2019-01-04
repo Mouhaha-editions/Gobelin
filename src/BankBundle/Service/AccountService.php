@@ -36,6 +36,12 @@ class AccountService
            ->getQuery()->getResult();
     }
 
+    /**
+     * @param Operation $operation
+     * @param bool $delete
+     * @return Operation
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function budgetMethod(Operation $operation, $delete = false)
     {
         /** @var Operation $budget */
@@ -53,12 +59,33 @@ class AccountService
             ->getQuery()->getOneOrNullResult();
 
         if ($budget != null) {
-            if ($delete) {
+            //si on est en mode suppression d'une operation impactant le budget et l'operation avait été pointée
+            if ($delete && $operation->getPointed()) {
+                //alors on remet le montant de l'operation dans du budget
                 $budget->setAmount($budget->getAmount() + $operation->getAmount());
-            } else if ($operation->getId() == null) {
-                $budget->setAmount($budget->getAmount() - $operation->getAmount());
+            } else{
+                //sinon
+                //si c'est une nouvelle operation
+                if ($operation->getId() == null) {
+                    //si l'operation est pointée
+                    if($operation->getPointed()) {
+                        // on retire le montant de l'operation au budget
+                        $budget->setAmount($budget->getAmount() - $operation->getAmount());
+                    }//sinon on s'en fout
+                }else{
+                    //sinon (donc l'operation a été ajoutée précédement
+                    //si l'operation n'est pas pointée
+                    if(!$operation->getPointed()) {
+                        //alors on remet le montant de l'operation dans du budget
+                        $budget->setAmount($budget->getAmount() + $operation->getAmount());
+                    }else{
+                        //sinon on deduit du budget
+                        $budget->setAmount($budget->getAmount() - $operation->getAmount());
+                    }
+                }
             }
         }
+        return $budget;
     }
 
     /**
