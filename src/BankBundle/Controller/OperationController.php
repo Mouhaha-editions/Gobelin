@@ -33,7 +33,7 @@ class OperationController extends Controller
     public function indexAction(Request $request, Account $account)
     {
         $data = [
-            'startDate' => (new \DateTime())->modify('-1 months'),
+            'startDate' => (new \DateTime())->modify('first day of this month'),
             'endDate' => (new \DateTime())->modify('last day of this month'),
             'pointed' => true
         ];
@@ -75,7 +75,7 @@ class OperationController extends Controller
         $qb = $em->getRepository('BankBundle:Operation')->createQueryBuilder('o')
             ->where('o.account = :account')
             ->andWhere('o.deleted = :false')
-            ->andWhere('o.date BETWEEN :start AND :end')
+            ->andWhere('(o.date BETWEEN :start AND :end OR o.pointed = 0)')
             ->setParameter('false', false)
             ->setParameter('start', $start)
             ->setParameter('end', $end)
