@@ -75,7 +75,7 @@ class OperationController extends Controller
         $qb = $em->getRepository('BankBundle:Operation')->createQueryBuilder('o')
             ->where('o.account = :account')
             ->andWhere('o.deleted = :false')
-            ->andWhere('(o.date BETWEEN :start AND :end OR o.pointed = 0)')
+            ->andWhere('(o.date BETWEEN :start AND :end OR  (o.date < :end AND o.pointed = 0))')
             ->setParameter('false', false)
             ->setParameter('start', $start)
             ->setParameter('end', $end)
