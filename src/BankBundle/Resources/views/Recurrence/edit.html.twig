@@ -29,6 +29,10 @@
     <script src="{{ asset('vendor/EasyAutocomplete/dist/jquery.easy-autocomplete.js') }}"></script>
     <script>
         $(function () {
+
+            $("#bankbundle_recurrence_amount").on('keyup',function(){
+               $(this).val($(this).val().toString().replace(',','.'));
+            });
             var options_category = {
                 data: {{ render(controller('BankBundle:OperationCategory:jsonList')) }},
                 getValue: 'label',

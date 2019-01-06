@@ -1,4 +1,5 @@
 <?php
+
 namespace BankBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -18,23 +19,56 @@ class OperationType extends AbstractType
     {
 
         $builder
-            ->add('label')
+            ->add('label',null,[
+                'attr' => ['placeholder' => "operation.placeholder.label"],
+                'label' => 'operation.label.label'
+            ])
             ->add('date', DateType::class, [
                 'format' => DateType::HTML5_FORMAT,
                 'widget' => 'single_text',
                 'required' => true,
                 'attr' => ['placeholder' => "operation.placeholder.date"],
-                'label' => 'operation.placeholder.date'
+                'label' => 'operation.label.date'
             ])
-            ->add('category',HiddenType::class,['mapped'=>false])
-            ->add('category_text',TextType::class,['mapped'=>false])
-            ->add('tiers_text',TextType::class,['mapped'=>false])
-            ->add('tiers',HiddenType::class,['mapped'=>false])
-            ->add('referenceCheque')
-            ->add('amount')
-            ->add('pointed',null,['required'=>false])
-            ->add('budget',null,['required'=>false])
-        ;
+            ->add('category', HiddenType::class, [
+                'mapped' => false,
+                'attr' => ['placeholder' => "operation.placeholder.category"],
+                'label' => 'operation.label.category'
+            ])
+            ->add('category_text', TextType::class, [
+                'mapped' => false,
+                'attr' => ['placeholder' => "operation.placeholder.category"],
+                'label' => 'operation.label.category'
+            ])
+            ->add('tiers_text', TextType::class, [
+                'mapped' => false,
+                'attr' => ['placeholder' => "operation.placeholder.tiers"],
+                'label' => 'operation.label.tiers'
+            ])
+            ->add('tiers', HiddenType::class, [
+                'mapped' => false,
+                'attr' => ['placeholder' => "operation.placeholder.tiers"],
+                'label' => 'operation.label.tiers'
+            ])
+            ->add('referenceCheque', null,[
+                'required' => false,
+                'attr' => ['placeholder' => "operation.placeholder.referenceCheque"],
+                'label' => 'operation.label.referenceCheque'
+            ])
+            ->add('amount',null,[
+                'required' => true,
+                'attr' => ['placeholder' => "operation.placeholder.amount"],
+                'label' => 'operation.label.amount'
+            ])
+            ->add('pointed', null, [
+                'required' => false,
+                'attr' => ['placeholder' => "operation.placeholder.pointed"],
+                'label' => 'operation.label.pointed'
+            ])
+            ->add('budget', null, ['required' => false,
+                'attr' => ['placeholder' => "operation.placeholder.budget"],
+                'label' => 'operation.label.budget'
+            ]);
     }
 
     /**

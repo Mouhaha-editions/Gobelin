@@ -9,8 +9,10 @@ use BankBundle\Entity\OperationTiers;
 use BankBundle\Entity\Recurrence;
 use BankBundle\Form\OperationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\VarDumper\VarDumper;
@@ -33,6 +35,7 @@ class OperationController extends Controller
         $data = [
             'startDate' => (new \DateTime())->modify('-1 months'),
             'endDate' => (new \DateTime())->modify('last day of this month'),
+            'pointed' => true
         ];
         $form = $this->createFormBuilder($data, ['method' => 'get']);
         $form->add('startDate', DateType::class, [
@@ -49,6 +52,14 @@ class OperationController extends Controller
                 'attr' => ['placeholder' => "recurrence.placeholder.endDate"],
                 'label' => 'recurrence.label.endDate'
             ])
+            ->add('pointed', CheckboxType::class, [
+                'required'=>false,
+                'attr' => ['placeholder' => "operation.placeholder.pointed"],
+                'label' => 'operation.label.pointed'])
+            ->add('label', TextType::class, [
+                'required'=>false,
+                'attr' => ['placeholder' => "operation.placeholder.label"],
+                'label' => 'operation.label.label'])
             ->add('voir', SubmitType::class);
 
 
@@ -70,6 +81,14 @@ class OperationController extends Controller
             ->setParameter('end', $end)
             ->setParameter('account', $account)
             ->orderBy('o.date', 'DESC');
+        if ($form->get('label')->getNormData()) {
+            $qb->andWhere('o.label LIKE :thelabel')
+                ->setParameter('thelabel', '%' . $form->get('label')->getNormData(). '%');
+        }
+        if ($form->get('pointed')->getNormData() == null) {
+            $qb->andWhere('o.pointed = 0');
+        }
+
 
         $pagination = $this->get('pkshetlie.pagination')->process($qb, $request);
 
@@ -120,20 +139,20 @@ class OperationController extends Controller
         $amountOutByCategory = $this->get('bank.account')->getAmountOutDateToDateByCategory($account, $start, $end);
         $amountInByCategory = $this->get('bank.account')->getAmountInDateToDateByCategory($account, $start, $end);
 
-        $totalOut = array_sum(array_map(function($r){
+        $totalOut = array_sum(array_map(function ($r) {
             return $r['value'];
-        },$amountOutByCategory));
+        }, $amountOutByCategory));
 
-        $totalIn = array_sum(array_map(function($r){
+        $totalIn = array_sum(array_map(function ($r) {
             return $r['value'];
-        },$amountInByCategory));
+        }, $amountInByCategory));
 
-        $ratio= -1* $totalOut / ($totalIn ==0? 0.0000000001:$totalIn) *100;
+        $ratio = -1 * $totalOut / ($totalIn == 0 ? 0.0000000001 : $totalIn) * 100;
         $amountOutDayByDay = $this->get('bank.account')->getAmountOutDayByDayDateToDate($account, $start, $end);
         $amountInDayByDay = $this->get('bank.account')->getAmountInDayByDayDateToDate($account, $start, $end);
 
 
-        return $this->render('@Bank/Operation/stats.html.twig',[
+        return $this->render('@Bank/Operation/stats.html.twig', [
             'form' => $form->createView(),
             'amountOutByCategory' => $amountOutByCategory,
             'amountInByCategory' => $amountInByCategory,
@@ -145,7 +164,7 @@ class OperationController extends Controller
 
         ]);
     }
-    
+
     /**
      * Creates a new account entity.
      * @param Request $request
@@ -158,6 +177,8 @@ class OperationController extends Controller
         $operation = new Operation();
         $operation->setDate(new \DateTime());
         $operation->setAccount($account);
+        $operation->setAmount(-10);
+
         return $this->editAction($request, $operation);
     }
 
@@ -168,15 +189,15 @@ class OperationController extends Controller
         $op = $this->get('bank.account')->budgetMethod($operation);
         $em->flush();
 
-        return new JsonResponse(['operations'=>$op != null ?[
+        return new JsonResponse(['operations' => $op != null ? [
 
             [
-            'id'=>$op->getId(),
-            'amount'=>number_format($op->getAmount(),2,',',' '),
+                'id' => $op->getId(),
+                'amount' => number_format($op->getAmount(), 2, ',', ' '),
             ]
-            ]: null
-        ,
-            'toAdd'=>$operation->getPointed() ? $operation->getAmount() : $operation->getAmount() * -1,
+        ] : null
+            ,
+            'toAdd' => $operation->getPointed() ? $operation->getAmount() : $operation->getAmount() * -1,
         ]);
     }
 
@@ -185,10 +206,10 @@ class OperationController extends Controller
      * @param Request $request
      * @param Operation $operation
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function editAction(Request $request, Operation $operation)
     {
-        $pointed = $operation->getPointed();
         $form = $this->createForm(OperationType::class, $operation);
         $form->get('category')->setData($operation->getCategory() != null ? $operation->getCategory()->getId() : '');
         $form->get('category_text')->setData($operation->getCategory() ? $operation->getCategory()->getLabel() : '');

@@ -174,6 +174,7 @@ class AccountService
                 break;
         }
         $start = clone $recurrence->getStartDate();
+
         $end = clone $to;
         while ($start <= $end) {
             if ($recurrence->getEndDate() != null && $start > $recurrence->getEndDate()) {

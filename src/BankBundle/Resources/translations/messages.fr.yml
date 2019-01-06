@@ -9,3 +9,16 @@ recurrence:
     startDate: Du
     endDate: Au
     budget: 'Est un budget ?'
+operation:
+  label:
+    label: Libellé
+    category: Catégorie
+    date: Date
+    tiers: Tiers
+    referenceCheque: Référence chèque
+    amount: Montant
+    pointed: Pointé ?
+    budget: Budget ?
+  placeholder:
+    date: Date
+    label: Comment le reconnaitre
