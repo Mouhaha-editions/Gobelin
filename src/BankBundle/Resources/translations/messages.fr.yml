@@ -22,3 +22,7 @@ operation:
   placeholder:
     date: Date
     label: Comment le reconnaitre
+    category: Catégorie
+    tiers: Tiers
+    referenceCheque: n° de référence du chèque
+    amount: Montant en €
